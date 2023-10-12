@@ -11,6 +11,15 @@
         </div>
     </div>
 </div>
+<div class="d-flex justify-content-end my-3">
+    <form action="{{ url('contacts') }}" method="GET">
+        <div class="d-flex">
+            <label for="search">Search:</label>
+            <input type="text" value="{{ $request->q }}" class="form-control me-2" id="search" name="q" placeholder="Enter your search term">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
 <div class="table-responsive bg-dark-blue">
     <table class="table text-white" width="100%">
         <thead>

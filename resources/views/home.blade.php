@@ -7,5 +7,6 @@
 </div>
 <div class="content text-white">
     {{ __('You are logged in!') }}
+    <a href="{{ url('contacts') }}" class="btn btn-secondary ms-2">Continue</a>
 </div>
 @endsection

@@ -9,13 +9,26 @@ use App\Models\Contacts;
 class ContactController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         $contacts = Contacts::where('user_id', Auth::id())
         ->latest()
         ->paginate(5);
 
-        return view('contacts/index',compact('contacts'));
+        $query = $request->input('q');
+        
+        if ($query) {
+            $contacts = Contacts::where('user_id', Auth::id())
+            ->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'like', "%$query%")
+                             ->orWhere('email', 'like', "%$query%")
+                             ->orWhere('phone', 'like', "%$query%")
+                             ->orWhere('address', 'like', "%$query%");
+            })->latest()->paginate(5);
+        
+        }
+
+        return view('contacts/index',compact('contacts', 'request'));
     }
 
     public function create()
