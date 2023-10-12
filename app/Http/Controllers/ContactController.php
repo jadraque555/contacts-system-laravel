@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Contacts;
 
 class ContactController extends Controller
@@ -10,7 +11,9 @@ class ContactController extends Controller
     //
     public function index()
     {
-        $contacts = Contacts::latest()->paginate(5);
+        $contacts = Contacts::where('user_id', Auth::id())
+        ->latest()
+        ->paginate(5);
 
         return view('contacts/index',compact('contacts'));
     }
